@@ -3,6 +3,11 @@ using System.Collection.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Syste.Collections.Concurrent;
 
 namespace Voxelizer
 {
@@ -30,7 +35,7 @@ namespace Voxelizer
             mesh = Utilities.ScaleAndShiftMesh(mesh, meta.Item1, meta.Item2).ToList();
 
             // 3D box cluster of point bounded within bounding dimensions
-            // Each of the dictionary key is X,Y, Z and value represents 0 or 1 (1 being a voxel)
+            // Each of the dictionary key is X,Y,Z and value represents 0 or 1 (1 being a voxel)
             ConcurrentDictionary<Tuple<int, int, int>, int> vol = new ConcurrentDictionary<Tuple<int, int, int>>();
 
             Stopwatch sw = Stopwatch.StartNew();

@@ -17,10 +17,11 @@ namespace Voxelizer
         {
             var relevantTraingles = mesh.Select(x => new List<Point { x.Item1, x.Item2, x.Item3}).Where( x=> IsAboveAndBelow(x, height));
             var notSameTraingles = relevantTraingles.Where( x => (!ToIntersectingTriangle(x, height)));
+            List<Line> lines = notSameTraingles.Select(x => TraingleToIntersectingLines(x, height)).ToList();
             return lines;
         }
 
-        static private Line TraingleToIntersectingLined(List<Point> triangle, double height)
+        static private Line TraingleToIntersectingLines(List<Point> triangle, double height)
         {
             List<Point> above = triangle.Where( x => x.Item3 > height).Select( x => x).ToList();
             List<Point> below = triangle.Where( x => x.Item3 < height).Select( x => x).ToList();

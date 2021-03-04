@@ -19,7 +19,7 @@ namespace Voxelizer
                 var targetYs = relevantLines.Select( line => Convert.ToInt32(GenerateY( line, x)));
                 foreach (var y in Enumerable.Range( 0, yBound))
                 {
-                    if (isBlack && voxel_size == 0)
+                    if (isBlack && y % voxel_size == 0)
                     {
                         pixels[new Tuple<int, int>(x,y)] = 1;
                     }
@@ -44,7 +44,7 @@ namespace Voxelizer
 
         static private IEnumerable<Line> FindRelevantLines(List<Line> lines, int x, int index = 0)
         {
-            foreach (Line line in liness
+            foreach (Line line in lines)
             {
                 bool same = false;
                 bool above = false;
@@ -108,14 +108,14 @@ namespace Voxelizer
             if (Convert.ToInt32 (line.Item1.Item1) != x && 
             Convert.ToInt32 (line.Item2.Item1) != x && 
             (new List<double>{line.Item1.Item1, line.Item2.Item1}.Max() < x ||
-            new List<double>{line.Item1.Item1, line.Item2.Item1}.Min > x))
+            new List<double>{line.Item1.Item1, line.Item2.Item1}.Min() > x))
             {
                 return false;
             }
              if (Convert.ToInt32 (line.Item1.Item2) != y && 
             Convert.ToInt32 (line.Item2.Item2) != y && 
             (new List<double>{line.Item1.Item2, line.Item2.Item2}.Max() < y ||
-            new List<double>{line.Item1.Item2, line.Item2.Item2}.Min > y))
+            new List<double>{line.Item1.Item2, line.Item2.Item2}.Min() > y))
             {
                 return false;
             }
