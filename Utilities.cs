@@ -41,7 +41,7 @@ namespace Voxelizer
                 List<Line> lines = new List<Line>();
                 foreach (var a in above)
                 {
-                    foreach (var b in above)
+                    foreach (var b in below)
                     {
                         Line line = new Line(b,a);
                         lines.Add(line);

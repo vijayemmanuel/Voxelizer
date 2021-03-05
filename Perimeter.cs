@@ -10,7 +10,7 @@ namespace Voxelizer
 
     class Perimeter
     {
-        static public void LinesToVoxels(List<Line> lines, ref Dictionary<Tuple<int, int, int> pixels, int xBound, int yBound, int voxel_size)
+        static public void LinesToVoxels(List<Line> lines, ref Dictionary<Tuple<int, int>, int> pixels, int xBound, int yBound, int voxel_size)
         {
             foreach (var x in Enumerable.Range(0, xBound).Where( x => x % voxel_size == 0))
             {
@@ -89,11 +89,11 @@ namespace Voxelizer
         {
             if (line.Item2.Item1 == line.Item1.Item1)
             {
-                return = -1;
+                return -1;
             }
             var ratio = (x - line.Item1.Item1) / (line.Item2.Item1 - line Item1.Item1);
-            var ydirst = line.Item2.Item2 - line.Item1.Item2;
-            var newy - line.Item1.Item2 + ratio * ydist;
+            var ydist = line.Item2.Item2 - line.Item1.Item2;
+            var newy = line.Item1.Item2 + ratio * ydist;
             return newy;
         }
 
@@ -101,7 +101,7 @@ namespace Voxelizer
         {
             double newy = GenerateY(line, x);
 
-            if (Convert.ToInt32(newy != y))
+            if (Convert.ToInt32(newy)!= y)
             {
                 return false;
             }

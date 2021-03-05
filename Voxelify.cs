@@ -36,7 +36,7 @@ namespace Voxelizer
 
             // 3D box cluster of point bounded within bounding dimensions
             // Each of the dictionary key is X,Y,Z and value represents 0 or 1 (1 being a voxel)
-            ConcurrentDictionary<Tuple<int, int, int>, int> vol = new ConcurrentDictionary<Tuple<int, int, int>>();
+            ConcurrentDictionary<Tuple<int, int, int>, int> vol = new ConcurrentDictionary<Tuple<int, int, int>, int>();
 
             Stopwatch sw = Stopwatch.StartNew();
             Parallel.ForEach(Enumerable.Range(0, meta.Item3.Item3 - 1).Where(x => x % voxel_size == 0), height =>
@@ -45,7 +45,7 @@ namespace Voxelizer
                 var lines = Utilities.ToIntersectingLines(mesh, height);
 
                 //Each of the dictionary key is X,Y index (Z is the height)  and value represents 0 or 1 (1 being a pixel)
-                Dictionary<Tuple<int, int, int>, int> prepixel = new Dictionary <Tuple<int, int, int>, int>();
+                Dictionary<Tuple<int, int>, int> prepixel = new Dictionary <Tuple<int, int>, int>();
 
                 //At teh Z plane (Represented by the height) we compute the pixel definition
                 Perimeter.LinesToVoxels(lines, ref prepixel, meta.Item3.Item1, meta.Item3.Item2, voxel_size);
