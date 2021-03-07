@@ -21,6 +21,7 @@ namespace Voxelizer
         private List<Triangle> mesh = null;
         private int resolution = 1000;
         private int voxel_size = 5;
+        private int pixelbrush_thickness = 0.75; // 75% of pixel_size
 
         public Voxelify(string inputfilename, string outputfilename)
         {
@@ -115,7 +116,10 @@ namespace Voxelizer
                 foreach (var value in bitmappixels[key])
                 {
                     Color color = Color.FromArgb(255,255,255);
-                    bmp.SetPixel(value.Item1, value.Item2, color);
+                    for (int xwidth = value.Item1 - (int)(voxel_size * pixelbrush_thickness); xwidth < value.Item1 + (int)(voxel_size * pixelbrush_thickness); xwidth++)
+                        for (int ywidth = value.Item2 - (int)(voxel_size * pixelbrush_thickness); ywidth < value.Item2 + (int)(voxel_size * pixelbrush_thickness); ywidth++)
+                            if (xwidth > 0 && xwidth < xBound && ywidth > 0 && ywidth < yBound)
+                                bmp.SetPixel(xwidth, ywidth, color);
                 }
                 bmp.Save(Path.Combine(outputfilepath, key.ToString()+ ".jpg"), ImageFormat.Jpeg);
                 bmp.Dispose();  
